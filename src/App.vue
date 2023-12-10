@@ -1,20 +1,25 @@
 <script>
 import axios from 'axios';
 import { store } from './data/store';
+import ProjectCard from './components/ProjectCard.vue';
 
 export default {
 
   name: 'App',
+  components:{
+    ProjectCard
+  },
   data() {
     return {
-      Titolo: 'boolfolio',
+      Titolo: 'I miei post',
     }
   },
   methods: {
     getApi(){
       axios.get(store.apiUrl + 'posts')
       .then(results => {
-        console.log(results.data);
+        console.log(results.data.data);
+        store.posts = results.data.data;
       })
     }
   },
@@ -28,7 +33,7 @@ export default {
 <template>
 
   <div class="container">
-    <h1>{{Titolo}}</h1>
+    <ProjectCard />
   </div>
   
 </template>
