@@ -19,7 +19,11 @@ import { store } from '../data/store';
   <h1>I miei post!</h1>
   <ul>
     <li v-for="post in store.posts" :key="post.id">
-      <p>{{ post.title }}</p>
+      <p class="title">{{ post.title }}</p>
+      <div>
+        <em>{{ post.category?.name }}</em>
+        <strong v-for="tag in post.tags" :key="tag.id">{{ tag.name }}</strong>
+      </div>
     </li>
   </ul>
 </template>
@@ -27,5 +31,16 @@ import { store } from '../data/store';
 <style lang="scss" scoped>
 h1{
   margin-bottom: 20px;  
+}
+ul{
+  list-style-type: none;
+  .title, em, strong{
+    margin-right: 10px;
+  }
+  li{
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+  }
 }
 </style>
