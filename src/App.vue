@@ -1,76 +1,36 @@
 <script>
-import axios from 'axios';
-import { store } from './data/store';
-import ProjectCard from './components/ProjectCard.vue';
-import Loader from './components/partials/Loader.vue';
-import Navigator from './components/partials/Navigator.vue'; 
+
+import Header from './components/partials/Header.vue';
 
 export default {
 
   name: 'App',
-  components:{
-    ProjectCard,
-    Loader,
-    Navigator
-  },
   data() {
-    return {
-      Titolo: 'I miei post',
-      isLoaded: false,
-      links: [],
-      paginator: {
-        firstPageUrl: '',
-        lastPageUrl: '',
-        links: [],
-        currentPage: '',
-        lastPage: '',
-      }
-    }
+    return {}
   },
-  methods: {
-    getApi(endpoint){
-      this.isLoaded = false;
-      axios.get(endpoint)
-      .then(results => {
-        this.isLoaded = true;
-        console.log(results.data.data);
-        store.posts = results.data.data;
-        this.paginator.links = results.data.links;
-        console.log(this.paginator.links);
-        this.paginator.firstPageUrl = results.data.first_page_url;
-        console.log(this.paginator.firstPageUrl);
-        this.paginator.lastPageUrl = results.data.last_page_url;
-        console.log(this.paginator.lastPageUrl);
-        this.paginator.currentPage = results.data.current_page;
-        console.log(this.paginator.currentPage);
-        this.paginator.lastPage = results.data.last_page;
-        console.log(this.paginator.lastPage);
-      })
-    }
+  components: {
+    Header
   },
-  mounted(){
-    this.getApi(store.apiUrl + 'posts');;
-  }
+  methods: {},
+  mounted() {},
+  computed: {}
 }
 </script>
 
 
 <template>
 
-  <div class="container">
-    <Loader v-if="!isLoaded" />
-
-    <div v-else>
-      <ProjectCard  />
-      <Navigator :paginator="paginator" @callApi="getApi"/>
+  <Header />
+  <div class="main-wrapper">
+    <div class="container">
+      <RouterView />
     </div>
-    
   </div>
   
 </template>
 
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 </style>
