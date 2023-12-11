@@ -20,6 +20,12 @@
             <li>
                 <router-link :to="{ name: 'about' }">About</router-link>
             </li>
+            <li>
+                <router-link :to="{ name: 'projects' }">Projects</router-link>
+            </li>
+            <li>
+                <router-link :to="{ name: 'contacts' }">Contacts</router-link>
+            </li>
         </ul>
     </nav>
   </header>
