@@ -1,25 +1,72 @@
 <script>
-  export default {
-    name: 'Projects',
-    data() {
-      return {}
-    },
-    computed: {},
-    mounted() {},
-    methods: {}
+import axios from 'axios';
+import { store } from '../data/store';
+import ProjectCard from '../components/ProjectCard.vue';
+import Loader from '../components/partials/Loader.vue';
+import Navigator from '../components/partials/Navigator.vue'; 
+
+export default {
+
+  name: 'App',
+  components:{
+    ProjectCard,
+    Loader,
+    Navigator
+  },
+  data() {
+    return {
+      Titolo: 'I miei post',
+      isLoaded: false,
+      links: [],
+      paginator: {
+        firstPageUrl: '',
+        lastPageUrl: '',
+        links: [],
+        currentPage: '',
+        lastPage: '',
+      }
+    }
+  },
+  methods: {
+    getApi(endpoint){
+      this.isLoaded = false;
+      axios.get(endpoint)
+      .then(results => {
+        this.isLoaded = true;
+        console.log(results.data.data);
+        store.posts = results.data.data;
+        this.paginator.links = results.data.links;
+        console.log(this.paginator.links);
+        this.paginator.firstPageUrl = results.data.first_page_url;
+        console.log(this.paginator.firstPageUrl);
+        this.paginator.lastPageUrl = results.data.last_page_url;
+        console.log(this.paginator.lastPageUrl);
+        this.paginator.currentPage = results.data.current_page;
+        console.log(this.paginator.currentPage);
+        this.paginator.lastPage = results.data.last_page;
+        console.log(this.paginator.lastPage);
+      })
+    }
+  },
+  mounted(){
+    this.getApi(store.apiUrl + 'posts');;
   }
+}
 </script>
 
+
 <template>
-  <h1>Projects</h1>
-  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos consectetur neque beatae alias maiores! Nobis, distinctio. Nihil ab possimus eligendi quibusdam, accusamus impedit quidem ullam, doloribus at, maiores quisquam eum quos vero tempora ea mollitia eaque expedita! Corrupti ipsam labore ullam possimus natus dolorum, vero fugit provident vel, rem nam amet recusandae ducimus quisquam dicta incidunt aliquid laboriosam eos animi. Quaerat incidunt, error fugit delectus earum sequi sed amet vel? Itaque velit fugit sequi suscipit temporibus aliquid labore laboriosam sed perspiciatis ex maiores, reprehenderit doloribus est eos incidunt provident, eligendi vitae repellendus cupiditate ipsa minima nam dolor nobis! Itaque, dignissimos.</p>
-  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos consectetur neque beatae alias maiores! Nobis, distinctio. Nihil ab possimus eligendi quibusdam, accusamus impedit quidem ullam, doloribus at, maiores quisquam eum quos vero tempora ea mollitia eaque expedita! Corrupti ipsam labore ullam possimus natus dolorum, vero fugit provident vel, rem nam amet recusandae ducimus quisquam dicta incidunt aliquid laboriosam eos animi. Quaerat incidunt, error fugit delectus earum sequi sed amet vel? Itaque velit fugit sequi suscipit temporibus aliquid labore laboriosam sed perspiciatis ex maiores, reprehenderit doloribus est eos incidunt provident, eligendi vitae repellendus cupiditate ipsa minima nam dolor nobis! Itaque, dignissimos.</p>
-  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos consectetur neque beatae alias maiores! Nobis, distinctio. Nihil ab possimus eligendi quibusdam, accusamus impedit quidem ullam, doloribus at, maiores quisquam eum quos vero tempora ea mollitia eaque expedita! Corrupti ipsam labore ullam possimus natus dolorum, vero fugit provident vel, rem nam amet recusandae ducimus quisquam dicta incidunt aliquid laboriosam eos animi. Quaerat incidunt, error fugit delectus earum sequi sed amet vel? Itaque velit fugit sequi suscipit temporibus aliquid labore laboriosam sed perspiciatis ex maiores, reprehenderit doloribus est eos incidunt provident, eligendi vitae repellendus cupiditate ipsa minima nam dolor nobis! Itaque, dignissimos.</p>
-  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos consectetur neque beatae alias maiores! Nobis, distinctio. Nihil ab possimus eligendi quibusdam, accusamus impedit quidem ullam, doloribus at, maiores quisquam eum quos vero tempora ea mollitia eaque expedita! Corrupti ipsam labore ullam possimus natus dolorum, vero fugit provident vel, rem nam amet recusandae ducimus quisquam dicta incidunt aliquid laboriosam eos animi. Quaerat incidunt, error fugit delectus earum sequi sed amet vel? Itaque velit fugit sequi suscipit temporibus aliquid labore laboriosam sed perspiciatis ex maiores, reprehenderit doloribus est eos incidunt provident, eligendi vitae repellendus cupiditate ipsa minima nam dolor nobis! Itaque, dignissimos.</p>
-  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos consectetur neque beatae alias maiores! Nobis, distinctio. Nihil ab possimus eligendi quibusdam, accusamus impedit quidem ullam, doloribus at, maiores quisquam eum quos vero tempora ea mollitia eaque expedita! Corrupti ipsam labore ullam possimus natus dolorum, vero fugit provident vel, rem nam amet recusandae ducimus quisquam dicta incidunt aliquid laboriosam eos animi. Quaerat incidunt, error fugit delectus earum sequi sed amet vel? Itaque velit fugit sequi suscipit temporibus aliquid labore laboriosam sed perspiciatis ex maiores, reprehenderit doloribus est eos incidunt provident, eligendi vitae repellendus cupiditate ipsa minima nam dolor nobis! Itaque, dignissimos.</p>
-  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos consectetur neque beatae alias maiores! Nobis, distinctio. Nihil ab possimus eligendi quibusdam, accusamus impedit quidem ullam, doloribus at, maiores quisquam eum quos vero tempora ea mollitia eaque expedita! Corrupti ipsam labore ullam possimus natus dolorum, vero fugit provident vel, rem nam amet recusandae ducimus quisquam dicta incidunt aliquid laboriosam eos animi. Quaerat incidunt, error fugit delectus earum sequi sed amet vel? Itaque velit fugit sequi suscipit temporibus aliquid labore laboriosam sed perspiciatis ex maiores, reprehenderit doloribus est eos incidunt provident, eligendi vitae repellendus cupiditate ipsa minima nam dolor nobis! Itaque, dignissimos.</p>
+    <Loader v-if="!isLoaded" />
+
+    <div v-else>
+      <ProjectCard  />
+      <Navigator :paginator="paginator" @callApi="getApi"/>
+    </div>
+  
 </template>
 
-<style lang="scss" scoped>
+
+
+<style lang="scss">
 
 </style>
